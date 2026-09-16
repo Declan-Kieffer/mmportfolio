@@ -24,6 +24,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation Bar */
@@ -35,12 +36,11 @@
             z-index: 1000;
         }
         .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 100%;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
         }
         .nav-logo {
             font-size: 1.4rem;
@@ -66,19 +66,16 @@
             text-decoration: underline;
         }
 
-        /* Header Banner - Static Image */
+        /* Header Banner Section - Spans completely edge-to-edge */
         .banner-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            width: 100%;
+            margin-bottom: 0;
         }
         .static-banner {
             width: 100%;
-            height: 400px;
+            height: 450px;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 2px solid var(--accent-white);
+            border-bottom: 2px solid var(--accent-white);
         }
         .static-banner img {
             width: 100%;
@@ -87,27 +84,26 @@
             object-position: center center;
         }
 
-        /* Main Content Grid Layout - Now featuring 4 wider columns */
+        /* Main Content Grid Layout - Total full-bleed viewport configuration */
         main {
-            max-width: 1400px;
-            margin: 0 auto 3rem auto;
-            padding: 0 2rem;
+            width: 100%;
             display: grid;
-            grid-template-columns: 320px 320px 1fr 320px; /* Made slideshows wider & added a 4th column */
-            gap: 1.5rem;
+            grid-template-columns: 360px 360px 1fr 360px 360px; 
             align-items: stretch;
+            background-color: var(--card-bg); /* Matches central section bg to form seamless edge-to-edge layout */
         }
 
         /* Side Slideshow Containers */
         .side-slideshow {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
-            border: 2px solid var(--accent-white);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-top: none;
+            border-bottom: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
             background-color: var(--accent-black);
             height: 100%;
-            min-height: 500px;
+            min-height: 600px;
         }
         
         .side-slides {
@@ -123,21 +119,11 @@
             object-fit: cover;
         }
 
-        /* Group 1 Animations (Left Side Team) */
-        .left-outer-anim {
-            animation: sideSlideLeft 16s infinite;
-        }
-        .left-inner-anim {
-            animation: sideSlideRight 16s infinite; /* Reverse order to create dynamic movement */
-        }
-
-        /* Group 2 Animations (Right Side Mirror) */
-        .right-inner-anim {
-            animation: sideSlideLeft 16s infinite;
-        }
-        .right-outer-anim {
-            animation: sideSlideRight 16s infinite;
-        }
+        /* Sliding Animation Track Classes */
+        .left-outer-anim { animation: sideSlideLeft 16s infinite; }
+        .left-inner-anim { animation: sideSlideRight 16s infinite; }
+        .right-inner-anim { animation: sideSlideLeft 16s infinite; }
+        .right-outer-anim { animation: sideSlideRight 16s infinite; }
 
         /* Vertical Sliding Keyframes for 4 images (ss1, ss2, ss3, ss4) */
         @keyframes sideSlideLeft {
@@ -156,68 +142,75 @@
             100% { transform: translateY(-75%); }
         }
 
-        /* Central Profile Layout */
+        /* Central Profile Layout Card - Stretches edge-to-edge seamlessly */
         .profile-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2.5rem;
+            padding: 3rem 4rem;
             display: flex;
-            flex-direction: column; /* Changed to stacked layout to accommodate the wider side elements cleanly */
-            gap: 2rem;
+            flex-direction: column; 
+            gap: 2.5rem;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
             height: 100%;
             text-align: center;
-        }
-        .profile-card::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: -5px;
-            bottom: -5px;
-            background-color: var(--accent-black);
-            z-index: -1;
-            border-radius: 8px;
-            opacity: 0.4;
+            justify-content: center;
         }
         .profile-img-container {
             flex-shrink: 0;
         }
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 50%;
             border: 4px solid var(--accent-white);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .profile-info {
             width: 100%;
+            max-width: 800px; /* Limits paragraph line length internally for optimal text presentation */
+            margin: 0 auto;
         }
         .profile-info h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1.5rem;
             letter-spacing: 0.5px;
             border-bottom: 2px solid var(--accent-white);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.75rem;
+            text-transform: uppercase;
         }
         .profile-info p {
-            margin-bottom: 1.2rem;
-            font-size: 1.05rem;
-            text-align: left; /* Kept text aligned left for optimal readability */
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: left; 
+            line-height: 1.7;
         }
         .profile-info p:last-child {
             margin-bottom: 0;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
+        /* Responsive Breakpoints */
+        @media (max-width: 1600px) {
             main {
-                grid-template-columns: 1fr 1fr; /* Stack layout down to 2 columns on medium screens */
-                gap: 2rem;
+                grid-template-columns: 280px 280px 1fr 280px 280px;
+            }
+        }
+        @media (max-width: 1300px) {
+            main {
+                grid-template-columns: 300px 1fr 300px; /* Reduces to a single slideshow column track on each flank */
+            }
+            .hide-mid {
+                display: none; /* Safely hides outer columns to preserve responsive layout density */
+            }
+        }
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr; /* True vertical display flow for tablets or smaller screens */
+            }
+            .side-slideshow {
+                display: none; 
+            }
+            .profile-card {
+                padding: 2.5rem 1.5rem;
             }
         }
         @media (max-width: 768px) {
@@ -233,12 +226,6 @@
             }
             .static-banner {
                 height: 250px;
-            }
-            main {
-                grid-template-columns: 1fr; /* Stack into single column on small screen layouts */
-            }
-            .side-slideshow {
-                display: none; /* Hide side showcases on mobile view to preserve container scaling */
             }
         }
     </style>
@@ -260,36 +247,37 @@
         </div>
     </nav>
 
-    <!-- Header Banner Section with single fixed image ss5.jpg -->
+    <!-- Header Banner Section spanning from edge-to-edge -->
     <div class="banner-container">
         <header class="static-banner">
             <img src="ss5.jpg" alt="Multimedia Featured Banner Project">
         </header>
     </div>
 
-    <!-- Main Content Grid Layout -->
+    <!-- Main Content Layout - Full Bleed Edge-To-Edge Container Block -->
     <main>
-        <!-- Left Outer Slideshow (ss1 - ss4) -->
-        <aside class="side-slideshow">
+        <!-- LEFT SIDE SLIDESHOWS -->
+        <!-- Left Outer Column Showcase (ss1 - ss4) -->
+        <aside class="side-slideshow hide-mid">
             <div class="side-slides left-outer-anim">
-                <img src="ss1.jpg" alt="Left Outer Slide 1">
-                <img src="ss2.jpg" alt="Left Outer Slide 2">
-                <img src="ss3.jpg" alt="Left Outer Slide 3">
-                <img src="ss4.jpg" alt="Left Outer Slide 4">
+                <img src="ss1.jpg" alt="Left Side Outer Presentation 1">
+                <img src="ss2.jpg" alt="Left Side Outer Presentation 2">
+                <img src="ss3.jpg" alt="Left Side Outer Presentation 3">
+                <img src="ss4.jpg" alt="Left Side Outer Presentation 4">
             </div>
         </aside>
 
-        <!-- Left Inner Slideshow (ss1 - ss4) -->
+        <!-- Left Inner Column Showcase (ss1 - ss4) -->
         <aside class="side-slideshow">
             <div class="side-slides left-inner-anim">
-                <img src="ss4.jpg" alt="Left Inner Slide 1">
-                <img src="ss3.jpg" alt="Left Inner Slide 2">
-                <img src="ss2.jpg" alt="Left Inner Slide 3">
-                <img src="ss1.jpg" alt="Left Inner Slide 4">
+                <img src="ss4.jpg" alt="Left Side Inner Presentation 1">
+                <img src="ss3.jpg" alt="Left Side Inner Presentation 2">
+                <img src="ss2.jpg" alt="Left Side Inner Presentation 3">
+                <img src="ss1.jpg" alt="Left Side Inner Presentation 4">
             </div>
         </aside>
 
-        <!-- Central Multimedia Portfolio Card -->
+        <!-- CENTRAL MULTIMEDIA PORTFOLIO SEAMLESS HERO CONTAINER -->
         <section class="profile-card">
             <div class="profile-img-container">
                 <img src="ss1.jpg" alt="Featured Media Project" class="profile-img">
@@ -298,5 +286,5 @@
             <div class="profile-info">
                 <h1>Multimedia Portfolio</h1>
                 
-                <!-- Paragraph 1: Portfolio Purpose & Photoshop Focus -->
+                <!-- Paragraph 1 -->
                 <p>
