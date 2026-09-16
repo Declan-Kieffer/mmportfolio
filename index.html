@@ -35,7 +35,7 @@
             z-index: 1000;
         }
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -68,7 +68,7 @@
 
         /* Header Banner - Static Image */
         .banner-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
@@ -87,13 +87,13 @@
             object-position: center center;
         }
 
-        /* Main Content Layout with Side Slideshows */
+        /* Main Content Grid Layout - Now featuring 4 wider columns */
         main {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto 3rem auto;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: 200px 1fr 200px;
+            grid-template-columns: 320px 320px 1fr 320px; /* Made slideshows wider & added a 4th column */
             gap: 1.5rem;
             align-items: stretch;
         }
@@ -107,7 +107,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             background-color: var(--accent-black);
             height: 100%;
-            min-height: 450px;
+            min-height: 500px;
         }
         
         .side-slides {
@@ -123,31 +123,37 @@
             object-fit: cover;
         }
 
-        /* Left Slideshow Animation */
-        .left-anim {
+        /* Group 1 Animations (Left Side Team) */
+        .left-outer-anim {
             animation: sideSlideLeft 16s infinite;
         }
+        .left-inner-anim {
+            animation: sideSlideRight 16s infinite; /* Reverse order to create dynamic movement */
+        }
 
-        /* Right Slideshow Animation (offset to prevent perfect mirroring) */
-        .right-anim {
+        /* Group 2 Animations (Right Side Mirror) */
+        .right-inner-anim {
+            animation: sideSlideLeft 16s infinite;
+        }
+        .right-outer-anim {
             animation: sideSlideRight 16s infinite;
         }
 
         /* Vertical Sliding Keyframes for 4 images (ss1, ss2, ss3, ss4) */
         @keyframes sideSlideLeft {
             0%, 20% { transform: translateY(0); }
-25%, 45% { transform: translateY(-25%); }
-50%, 70% { transform: translateY(-50%); }
-75%, 95% { transform: translateY(-75%); }
-100% { transform: translateY(0); }
+            25%, 45% { transform: translateY(-25%); }
+            50%, 70% { transform: translateY(-50%); }
+            75%, 95% { transform: translateY(-75%); }
+            100% { transform: translateY(0); }
         }
 
         @keyframes sideSlideRight {
             0%, 20% { transform: translateY(-75%); }
-25%, 45% { transform: translateY(-50%); }
-50%, 70% { transform: translateY(-25%); }
-75%, 95% { transform: translateY(0); }
-100% { transform: translateY(-75%); }
+            25%, 45% { transform: translateY(-50%); }
+            50%, 70% { transform: translateY(-25%); }
+            75%, 95% { transform: translateY(0); }
+            100% { transform: translateY(-75%); }
         }
 
         /* Central Profile Layout */
@@ -156,12 +162,14 @@
             border-radius: 8px;
             padding: 2.5rem;
             display: flex;
-            gap: 2.5rem;
+            flex-direction: column; /* Changed to stacked layout to accommodate the wider side elements cleanly */
+            gap: 2rem;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             border: 1px solid rgba(255,255,255,0.1);
             position: relative;
             height: 100%;
+            text-align: center;
         }
         .profile-card::after {
             content: '';
@@ -187,11 +195,11 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         .profile-info {
-            flex-grow: 1;
+            width: 100%;
         }
         .profile-info h1 {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             letter-spacing: 0.5px;
             border-bottom: 2px solid var(--accent-white);
             padding-bottom: 0.5rem;
@@ -199,19 +207,17 @@
         .profile-info p {
             margin-bottom: 1.2rem;
             font-size: 1.05rem;
+            text-align: left; /* Kept text aligned left for optimal readability */
         }
         .profile-info p:last-child {
             margin-bottom: 0;
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
             main {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr; /* Stack layout down to 2 columns on medium screens */
                 gap: 2rem;
-            }
-            .side-slideshow {
-                display: none; /* Hides side panels on small screens to maintain layout integrity */
             }
         }
         @media (max-width: 768px) {
@@ -228,11 +234,11 @@
             .static-banner {
                 height: 250px;
             }
-            .profile-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-                gap: 1.5rem;
+            main {
+                grid-template-columns: 1fr; /* Stack into single column on small screen layouts */
+            }
+            .side-slideshow {
+                display: none; /* Hide side showcases on mobile view to preserve container scaling */
             }
         }
     </style>
@@ -263,13 +269,23 @@
 
     <!-- Main Content Grid Layout -->
     <main>
-        <!-- Left Side Slideshow (ss1 - ss4) -->
+        <!-- Left Outer Slideshow (ss1 - ss4) -->
         <aside class="side-slideshow">
-            <div class="side-slides left-anim">
-                <img src="ss1.jpg" alt="Left Slide 1">
-                <img src="ss2.jpg" alt="Left Slide 2">
-                <img src="ss3.jpg" alt="Left Slide 3">
-                <img src="ss4.jpg" alt="Left Slide 4">
+            <div class="side-slides left-outer-anim">
+                <img src="ss1.jpg" alt="Left Outer Slide 1">
+                <img src="ss2.jpg" alt="Left Outer Slide 2">
+                <img src="ss3.jpg" alt="Left Outer Slide 3">
+                <img src="ss4.jpg" alt="Left Outer Slide 4">
+            </div>
+        </aside>
+
+        <!-- Left Inner Slideshow (ss1 - ss4) -->
+        <aside class="side-slideshow">
+            <div class="side-slides left-inner-anim">
+                <img src="ss4.jpg" alt="Left Inner Slide 1">
+                <img src="ss3.jpg" alt="Left Inner Slide 2">
+                <img src="ss2.jpg" alt="Left Inner Slide 3">
+                <img src="ss1.jpg" alt="Left Inner Slide 4">
             </div>
         </aside>
 
@@ -283,9 +299,4 @@
                 <h1>Multimedia Portfolio</h1>
                 
                 <!-- Paragraph 1: Portfolio Purpose & Photoshop Focus -->
-                <p>
-                    In this class, I have significantly advanced my technical skills in <strong>Adobe Photoshop</strong> by transforming raw school event imagery into complex, stylized visual designs. Through these projects, I mastered <strong>advanced layering techniques, intricate grid-based masking, and intentional color grading</strong> to create dynamic composite action shots. I also gained experience working with <strong>asset isolation, texturing, and blend modes</strong> to blend vintage aesthetic styles with modern graphic layouts, alongside using <strong>high-contrast filtering</strong> to build high-energy, cinematic sports designs.
-                </p>
-                
-                <!-- Paragraph 2: Current Skills & Goals -->
                 <p>
