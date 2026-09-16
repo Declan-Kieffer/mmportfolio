@@ -35,7 +35,7 @@
             z-index: 1000;
         }
         .nav-container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -66,14 +66,13 @@
             text-decoration: underline;
         }
 
-        /* Header Banner / Slideshow Section */
+        /* Header Banner - Static Image */
         .banner-container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
-        .slideshow {
-            position: relative;
+        .static-banner {
             width: 100%;
             height: 400px;
             overflow: hidden;
@@ -81,40 +80,77 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 2px solid var(--accent-white);
         }
-        .slides {
-            display: flex;
-            width: 500%;
-            height: 100%;
-            animation: slideAnimation 20s infinite;
-        }
-        .slides img {
-            width: 20%;
+        .static-banner img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center center;
         }
 
-        /* CSS Slideshow Animation for 5 Slides */
-        @keyframes slideAnimation {
-            0% { transform: translateX(0); }
-            16% { transform: translateX(0); }
-            20% { transform: translateX(-20%); }
-            36% { transform: translateX(-20%); }
-            40% { transform: translateX(-40%); }
-            56% { transform: translateX(-40%); }
-            60% { transform: translateX(-60%); }
-            76% { transform: translateX(-60%); }
-            80% { transform: translateX(-80%); }
-            96% { transform: translateX(-80%); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Main Content Layout */
+        /* Main Content Layout with Side Slideshows */
         main {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto 3rem auto;
             padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 1.5rem;
+            align-items: stretch;
         }
+
+        /* Side Slideshow Containers */
+        .side-slideshow {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid var(--accent-white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            background-color: var(--accent-black);
+            height: 100%;
+            min-height: 450px;
+        }
+        
+        .side-slides {
+            display: flex;
+            flex-direction: column;
+            height: 400%;
+            width: 100%;
+        }
+        
+        .side-slides img {
+            width: 100%;
+            height: 25%;
+            object-fit: cover;
+        }
+
+        /* Left Slideshow Animation */
+        .left-anim {
+            animation: sideSlideLeft 16s infinite;
+        }
+
+        /* Right Slideshow Animation (offset to prevent perfect mirroring) */
+        .right-anim {
+            animation: sideSlideRight 16s infinite;
+        }
+
+        /* Vertical Sliding Keyframes for 4 images (ss1, ss2, ss3, ss4) */
+        @keyframes sideSlideLeft {
+            0%, 20% { transform: translateY(0); }
+25%, 45% { transform: translateY(-25%); }
+50%, 70% { transform: translateY(-50%); }
+75%, 95% { transform: translateY(-75%); }
+100% { transform: translateY(0); }
+        }
+
+        @keyframes sideSlideRight {
+            0%, 20% { transform: translateY(-75%); }
+25%, 45% { transform: translateY(-50%); }
+50%, 70% { transform: translateY(-25%); }
+75%, 95% { transform: translateY(0); }
+100% { transform: translateY(-75%); }
+        }
+
+        /* Central Profile Layout */
         .profile-card {
             background-color: var(--card-bg);
             border-radius: 8px;
@@ -125,6 +161,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             border: 1px solid rgba(255,255,255,0.1);
             position: relative;
+            height: 100%;
         }
         .profile-card::after {
             content: '';
@@ -142,8 +179,8 @@
             flex-shrink: 0;
         }
         .profile-img {
-            width: 220px;
-            height: 220px;
+            width: 180px;
+            height: 180px;
             object-fit: cover;
             border-radius: 50%;
             border: 4px solid var(--accent-white);
@@ -168,6 +205,15 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 992px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .side-slideshow {
+                display: none; /* Hides side panels on small screens to maintain layout integrity */
+            }
+        }
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -179,7 +225,7 @@
                 justify-content: center;
                 gap: 1rem;
             }
-            .slideshow {
+            .static-banner {
                 height: 250px;
             }
             .profile-card {
@@ -187,10 +233,6 @@
                 text-align: center;
                 padding: 1.5rem;
                 gap: 1.5rem;
-            }
-            .profile-img {
-                width: 180px;
-                height: 180px;
             }
         }
     </style>
@@ -212,28 +254,31 @@
         </div>
     </nav>
 
-    <!-- Header Banner / Slideshow Section -->
+    <!-- Header Banner Section with single fixed image ss5.jpg -->
     <div class="banner-container">
-        <header class="slideshow">
-            <div class="slides">
-                <img src="ss1.jpg" alt="Multimedia Project Slide 1">
-                <img src="ss2.jpg" alt="Multimedia Project Slide 2">
-                <img src="ss3.jpg" alt="Multimedia Project Slide 3">
-                <img src="ss4.jpg" alt="Multimedia Project Slide 4">
-                <img src="ss5.jpg" alt="Multimedia Project Slide 5">
-            </div>
+        <header class="static-banner">
+            <img src="ss5.jpg" alt="Multimedia Featured Banner Project">
         </header>
     </div>
 
-    <!-- Main Content Layout -->
+    <!-- Main Content Grid Layout -->
     <main>
+        <!-- Left Side Slideshow (ss1 - ss4) -->
+        <aside class="side-slideshow">
+            <div class="side-slides left-anim">
+                <img src="ss1.jpg" alt="Left Slide 1">
+                <img src="ss2.jpg" alt="Left Slide 2">
+                <img src="ss3.jpg" alt="Left Slide 3">
+                <img src="ss4.jpg" alt="Left Slide 4">
+            </div>
+        </aside>
+
+        <!-- Central Multimedia Portfolio Card -->
         <section class="profile-card">
-            <!-- Profile Image using ss1.jpg -->
             <div class="profile-img-container">
                 <img src="ss1.jpg" alt="Featured Media Project" class="profile-img">
             </div>
             
-            <!-- Paragraph Content aligned to the right of the image -->
             <div class="profile-info">
                 <h1>Multimedia Portfolio</h1>
                 
@@ -244,11 +289,3 @@
                 
                 <!-- Paragraph 2: Current Skills & Goals -->
                 <p>
-                    Building on my current foundation, I am now comfortable utilizing Photoshop's <strong>selection tools, layer styles, and compositing workflows</strong> to manipulate images and arrange clean marketing layouts. My primary goal for the remainder of this class is to move beyond these core fundamentals and dive deeper into <strong>advanced photo restoration, non-destructive smart object workflows, and complex digital painting</strong>. By mastering these advanced tools, I plan to bridge the gap between photo editing and true digital art, allowing me to bring any creative vision to life from scratch.
-                </p>
-            </div>
-        </section>
-    </main>
-
-</body>
-</html>
