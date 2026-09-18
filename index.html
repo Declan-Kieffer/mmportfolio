@@ -16,6 +16,7 @@
             background-color: #006699; /* Ocean Blue Background */
             color: #ffffff; /* Crisp White Text */
             line-height: 1.6;
+            padding-bottom: 40px;
         }
 
         /* Navigation Bar */
@@ -40,10 +41,11 @@
             color: #ffffff;
             text-decoration: none;
             letter-spacing: 1px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
         .nav-logo:hover {
             transform: scale(1.05);
+            color: #006699;
         }
         .nav-links {
             list-style: none;
@@ -54,27 +56,84 @@
             color: #ffffff;
             text-decoration: none;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             padding: 5px 10px;
             border-radius: 4px;
+            position: relative;
         }
         .nav-links a:hover, .nav-links a.active {
             color: #006699;
             background-color: #ffffff; /* White Accent */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
         }
 
-        /* Main Container Layout */
+        /* Header Banner Slideshow */
+        header {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .banner-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            background-color: #000000;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+        }
+        .banner-container:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+        }
+        /* CSS Keyframe Animation to cycle through images */
+        .slideshow {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            animation: slideAnimation 25s infinite;
+        }
+        .slide {
+            width: 20%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .slide-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .banner-container:hover .slide-text {
+            background: rgba(75, 0, 130, 0.95); /* Changes to intense purple on hover */
+            transform: translateX(10px);
+        }
+        @keyframes slideAnimation {
+            0%, 16% { transform: translateX(0%); }
+            20%, 36% { transform: translateX(-20%); }
+            40%, 56% { transform: translateX(-40%); }
+            60%, 76% { transform: translateX(-60%); }
+            80%, 96% { transform: translateX(-80%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* Main Layout Content Container */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+            padding: 20px;
         }
-
-        /* Profile Introduction Card */
-        .profile-card {
+        
+        /* Purple Content Card Area */
+        .content-card {
             background-color: #4B0082; /* Purple Content Card */
             border-radius: 12px;
             padding: 40px;
@@ -82,28 +141,34 @@
             display: flex;
             gap: 40px;
             align-items: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, background-color 0.3s ease;
         }
-        .profile-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+            background-color: #5a059b; /* Subtle purple glow shift */
         }
+        
+        /* Profile Image Panel */
         .profile-container {
-            flex: 0 0 220px;
+            flex: 0 0 250px;
         }
         .profile-img {
-            width: 220px;
-            height: 220px;
+            width: 250px;
+            height: 250px;
             object-fit: cover;
             border-radius: 50%;
-            border: 5px solid #ffffff;
+            border: 5px solid #ffffff; /* White Accent border */
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.5s ease, border-color 0.3s ease;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .profile-card:hover .profile-img {
-            transform: scale(1.05) rotate(3deg);
-            border-color: #006699;
+        .content-card:hover .profile-img {
+            transform: scale(1.08) rotate(5deg);
+            border-color: #ffffff; 
+            box-shadow: 0 8px 20px rgba(255,255,255,0.3);
         }
+        
+        /* Biography Panel */
         .bio-container {
             flex: 1;
         }
@@ -112,117 +177,39 @@
             margin-bottom: 20px;
             border-bottom: 3px solid #ffffff;
             padding-bottom: 10px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, color 0.3s ease;
         }
-        .profile-card:hover .bio-container h1 {
-            border-color: #006699;
+        .content-card:hover .bio-container h1 {
+            border-color: #ffffff;
+            color: #ffffff;
         }
         .bio-container p {
             font-size: 1.1rem;
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .content-card:hover .bio-container p {
+            transform: translateX(5px);
         }
         .bio-container p:last-child {
             margin-bottom: 0;
         }
 
-        /* Photoshop Project Gallery Section */
-        .gallery-heading {
-            font-size: 2rem;
-            border-left: 5px solid #000000;
-            padding-left: 15px;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-        .project-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        .project-row {
-            background-color: #4B0082; /* Purple Content Card */
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: stretch;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-row:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .project-image-box {
-            flex: 0 0 450px;
-            min-height: 320px;
-            overflow: hidden;
-            position: relative;
-        }
-        .project-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .project-row:hover .project-img {
-            transform: scale(1.03);
-        }
-        .project-details {
-            flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .project-details h2 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 8px;
-            transition: border-color 0.3s ease;
-        }
-        .project-row:hover .project-details h2 {
-            border-color: #006699;
-        }
-        .project-details p {
-            font-size: 1.05rem;
-            color: #f0f0f0;
-            margin-bottom: 15px;
-        }
-        .project-details .tech-tag {
-            display: inline-block;
-            background-color: #000000;
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            align-self: flex-start;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-
-        /* Footer */
+        /* Footer Element */
         footer {
             background-color: #000000;
             color: #ffffff;
             text-align: center;
-            padding: 25px;
-            margin-top: 50px;
+            padding: 20px;
+            margin-top: 40px;
             font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        footer:hover {
+            background-color: #111111;
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .project-row {
-                flex-direction: column;
-            }
-            .project-image-box {
-                flex: none;
-                width: 100%;
-                height: 280px;
-                min-height: auto;
-            }
-        }
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -233,16 +220,22 @@
                 justify-content: center;
                 gap: 10px;
             }
-            .profile-card {
+            .banner-container {
+                height: 250px;
+            }
+            .content-card {
                 flex-direction: column;
                 text-align: center;
-                padding: 30px 20px;
+                padding: 20px;
             }
             .profile-container {
                 flex: none;
             }
             .bio-container h1 {
                 font-size: 2rem;
+            }
+            .content-card:hover .bio-container p {
+                transform: none;
             }
         }
     </style>
@@ -264,34 +257,38 @@
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main>
-        
-        <!-- Profile & Introduction Card -->
-        <section class="profile-card">
-            <div class="profile-container">
-                <img src="me.jpg" alt="My Profile Picture" class="profile-img">
+    <!-- Header Banner Slideshow -->
+    <header>
+        <div class="banner-container">
+            <div class="slideshow">
+                <div class="slide" style="background-image: url('ss1.jpg');">
+                    <div class="slide-text">Featured Work Showcase</div>
+                </div>
+                <div class="slide" style="background-image: url('ss2.jpg');">
+                    <div class="slide-text">Digital Art Assets</div>
+                </div>
+                <div class="slide" style="background-image: url('ss3.jpg');">
+                    <div class="slide-text">Graphic Design Layouts</div>
+                </div>
+                <div class="slide" style="background-image: url('ss4.jpg');">
+                    <div class="slide-text">Video Production Highlights</div>
+                </div>
+                <div class="slide" style="background-image: url('ss5.jpg');">
+                    <div class="slide-text">Creative Animations</div>
+                </div>
             </div>
+        </div>
+    </header>
+
+    <!-- Main Layout Content -->
+    <main>
+        <div class="content-card">
+            <!-- Profile Image (Left Side) -->
+            <div class="profile-container">
+                <img src="me.jpg" alt="Profile Picture" class="profile-img">
+            </div>
+            
+            <!-- Biography Content (Right Side) -->
             <div class="bio-container">
                 <h1>Welcome to My Portfolio</h1>
                 <p>Hello! Welcome to my high school multimedia portfolio site. This space serves as a comprehensive collection of the creative projects and technical skills I have developed over the course of the school year, using industry-standard production tools.</p>
-                <p>Explore the navigation options above to view my specialized project pages. Each section highlights unique milestones in my learning journey, featuring original digital image edits, custom vector illustrations, video productions, and dynamic frame animations.</p>
-            </div>
-        </section>
-
-        <!-- Gallery Section Breakdown -->
-        <h2 class="gallery-heading">Photoshop Production Showcases</h2>
-        
-        <section class="project-section">
-            
-            <!-- Photo 1 Component -->
-            <div class="project-row">
-                <div class="project-image-box">
-                    <img src="ss1.jpg" alt="Action Sports Composite" class="project-img">
-                </div>
-                <div class="project-details">
-                    <h2>Action Sports Composite</h2>
-                    <p>To create this dynamic action composite, I isolated the running football players using the <strong>Quick Selection Tool</strong> and refined the edges with the <strong>Select and Mask</strong> workspace to cleanly separate hair and helmet details from the raw background. I then generated a localized high-contrast atmosphere using custom <strong>Adjustment Layers</strong> (Curves and Hue/Sat) paired with precision brushwork on the layer masks to emphasize highlights along the players' silhouettes.</p>
-                    <span class="tech-tag">Selection Tools & Masking</span>
-                </div>
-            </div>
