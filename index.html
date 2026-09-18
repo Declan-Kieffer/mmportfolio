@@ -40,6 +40,10 @@
             color: #ffffff;
             text-decoration: none;
             letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+        .nav-logo:hover {
+            transform: scale(1.05);
         }
         .nav-links {
             list-style: none;
@@ -50,7 +54,7 @@
             color: #ffffff;
             text-decoration: none;
             font-size: 1rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             padding: 5px 10px;
             border-radius: 4px;
         }
@@ -73,6 +77,11 @@
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             background-color: #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .banner-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
         }
         /* CSS Keyframe Animation to cycle through images */
         .slideshow {
@@ -96,6 +105,10 @@
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+        .banner-container:hover .slide-text {
+            background: rgba(75, 0, 130, 0.9); /* Subtle purple shift on hover */
         }
         @keyframes slideAnimation {
             0%, 16% { transform: translateX(0%); }
@@ -120,6 +133,11 @@
             display: flex;
             gap: 40px;
             align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
         }
         .profile-container {
             flex: 0 0 250px;
@@ -131,6 +149,11 @@
             border-radius: 50%;
             border: 5px solid #ffffff; /* White Accent border */
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease, border-color 0.3s ease;
+        }
+        .content-card:hover .profile-img {
+            transform: scale(1.05) rotate(3deg);
+            border-color: #006699; /* Changes to Ocean Blue on container hover */
         }
         .bio-container {
             flex: 1;
@@ -140,6 +163,11 @@
             margin-bottom: 20px;
             border-bottom: 3px solid #ffffff;
             padding-bottom: 10px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .content-card:hover .bio-container h1 {
+            color: #ffffff;
+            border-color: #006699;
         }
         .bio-container p {
             font-size: 1.1rem;
@@ -251,5 +279,3 @@
 
 </body>
 </html>
-                <!-- Paragraph 1 -->
-                <p>
