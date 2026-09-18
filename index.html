@@ -11,221 +11,178 @@
             padding: 0;
             box-sizing: border-box;
         }
-        :root {
-            --bg-color: #0B2545;          /* Deep ocean blue background */
-            --accent-white: #ffffff;      /* White accent */
-            --accent-black: #000000;      /* Black accent */
-            --card-bg: #4A154B;           /* Purple content cards */
-            --text-color: #ffffff;        /* Crisp white text */
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #006699; /* Ocean Blue */
+            color: #ffffff; /* Crisp White Text */
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* Navigation Bar */
         nav {
-            background-color: var(--accent-black);
-            border-bottom: 3px solid var(--accent-white);
+            background-color: #000000; /* Black Accent */
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
         .nav-container {
-            max-width: 100%;
-            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 20px;
         }
         .nav-logo {
-            font-size: 1.4rem;
             font-weight: bold;
-            color: var(--text-color);
+            font-size: 1.3rem;
+            color: #ffffff;
             text-decoration: none;
             letter-spacing: 1px;
         }
         .nav-links {
-            display: flex;
             list-style: none;
-            gap: 1.5rem;
+            display: flex;
+            gap: 20px;
         }
         .nav-links a {
-            color: var(--text-color);
+            color: #ffffff;
             text-decoration: none;
-            font-weight: 500;
+            font-size: 1rem;
             transition: color 0.3s ease;
-            font-size: 0.95rem;
+            padding: 5px 10px;
+            border-radius: 4px;
         }
         .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-white);
-            text-decoration: underline;
+            color: #006699;
+            background-color: #ffffff; /* White Accent */
         }
 
-        /* Header Banner Section - Spans completely edge-to-edge */
+        /* Header Banner Slideshow Placeholder */
+        header {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
         .banner-container {
-            width: 100%;
-            margin-bottom: 0;
-        }
-        .static-banner {
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            border-bottom: 2px solid var(--accent-white);
-        }
-        .static-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-        }
-
-        /* Main Content Grid Layout - Total full-bleed viewport configuration */
-        main {
-            width: 100%;
-            display: grid;
-            grid-template-columns: 360px 360px 1fr 360px 360px; 
-            align-items: stretch;
-            background-color: var(--card-bg); /* Matches central section bg to form seamless edge-to-edge layout */
-        }
-
-        /* Side Slideshow Containers */
-        .side-slideshow {
             position: relative;
+            width: 100%;
+            height: 400px;
             overflow: hidden;
-            border-top: none;
-            border-bottom: none;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: var(--accent-black);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            background-color: #000000;
+        }
+        /* CSS Keyframe Animation to cycle through images */
+        .slideshow {
+            display: flex;
+            width: 500%;
             height: 100%;
-            min-height: 600px;
+            animation: slideAnimation 20s infinite;
         }
-        
-        .side-slides {
+        .slide {
+            width: 20%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .slide-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+        @keyframes slideAnimation {
+            0%, 16% { transform: translateX(0%); }
+            20%, 36% { transform: translateX(-20%); }
+            40%, 56% { transform: translateX(-40%); }
+            60%, 76% { transform: translateX(-60%); }
+            80%, 96% { transform: translateX(-80%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* Main Layout Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .content-card {
+            background-color: #4B0082; /* Purple Content Card */
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             display: flex;
-            flex-direction: column;
-            height: 400%;
-            width: 100%;
-        }
-        
-        .side-slides img {
-            width: 100%;
-            height: 25%;
-            object-fit: cover;
-        }
-
-        /* Sliding Animation Track Classes */
-        .left-outer-anim { animation: sideSlideLeft 16s infinite; }
-        .left-inner-anim { animation: sideSlideRight 16s infinite; }
-        .right-inner-anim { animation: sideSlideLeft 16s infinite; }
-        .right-outer-anim { animation: sideSlideRight 16s infinite; }
-
-        /* Vertical Sliding Keyframes for 4 images (ss1, ss2, ss3, ss4) */
-        @keyframes sideSlideLeft {
-            0%, 20% { transform: translateY(0); }
-            25%, 45% { transform: translateY(-25%); }
-            50%, 70% { transform: translateY(-50%); }
-            75%, 95% { transform: translateY(-75%); }
-            100% { transform: translateY(0); }
-        }
-
-        @keyframes sideSlideRight {
-            0%, 20% { transform: translateY(-75%); }
-            25%, 45% { transform: translateY(-50%); }
-            50%, 70% { transform: translateY(-25%); }
-            75%, 95% { transform: translateY(0); }
-            100% { transform: translateY(-75%); }
-        }
-
-        /* Central Profile Layout Card - Stretches edge-to-edge seamlessly */
-        .profile-card {
-            background-color: var(--card-bg);
-            padding: 3rem 4rem;
-            display: flex;
-            flex-direction: column; 
-            gap: 2.5rem;
+            gap: 40px;
             align-items: center;
-            height: 100%;
-            text-align: center;
-            justify-content: center;
         }
-        .profile-img-container {
-            flex-shrink: 0;
+        .profile-container {
+            flex: 0 0 250px;
         }
         .profile-img {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid var(--accent-white);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 5px solid #ffffff; /* White Accent border */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .profile-info {
-            width: 100%;
-            max-width: 800px; /* Limits paragraph line length internally for optimal text presentation */
-            margin: 0 auto;
+        .bio-container {
+            flex: 1;
         }
-        .profile-info h1 {
+        .bio-container h1 {
             font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--accent-white);
-            padding-bottom: 0.75rem;
-            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ffffff;
+            padding-bottom: 10px;
         }
-        .profile-info p {
-            margin-bottom: 1.5rem;
+        .bio-container p {
             font-size: 1.1rem;
-            text-align: left; 
-            line-height: 1.7;
+            margin-bottom: 15px;
         }
-        .profile-info p:last-child {
+        .bio-container p:last-child {
             margin-bottom: 0;
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 1600px) {
-            main {
-                grid-template-columns: 280px 280px 1fr 280px 280px;
-            }
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
         }
-        @media (max-width: 1300px) {
-            main {
-                grid-template-columns: 300px 1fr 300px; /* Reduces to a single slideshow column track on each flank */
-            }
-            .hide-mid {
-                display: none; /* Safely hides outer columns to preserve responsive layout density */
-            }
-        }
-        @media (max-width: 900px) {
-            main {
-                grid-template-columns: 1fr; /* True vertical display flow for tablets or smaller screens */
-            }
-            .side-slideshow {
-                display: none; 
-            }
-            .profile-card {
-                padding: 2.5rem 1.5rem;
-            }
-        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+                gap: 15px;
             }
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 1rem;
+                gap: 10px;
             }
-            .static-banner {
+            .banner-container {
                 height: 250px;
+            }
+            .content-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .profile-container {
+                flex: none;
+            }
+            .bio-container h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -235,7 +192,7 @@
     <!-- Navigation Bar -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">PORTFOLIO</a>
+            <a href="index.html" class="nav-logo">MY PORTFOLIO</a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="photoshop.html">Photoshop</a></li>
@@ -247,44 +204,52 @@
         </div>
     </nav>
 
-    <!-- Header Banner Section spanning from edge-to-edge -->
-    <div class="banner-container">
-        <header class="static-banner">
-            <img src="ss5.jpg" alt="Multimedia Featured Banner Project">
-        </header>
-    </div>
+    <!-- Header Banner Slideshow -->
+    <header>
+        <div class="banner-container">
+            <div class="slideshow">
+                <div class="slide" style="background-image: url('ss1.jpg');">
+                    <div class="slide-text">Featured Work Showcase</div>
+                </div>
+                <div class="slide" style="background-image: url('ss2.jpg');">
+                    <div class="slide-text">Digital Art Assets</div>
+                </div>
+                <div class="slide" style="background-image: url('ss3.jpg');">
+                    <div class="slide-text">Graphic Design Layouts</div>
+                </div>
+                <div class="slide" style="background-image: url('ss4.jpg');">
+                    <div class="slide-text">Video Production Highlights</div>
+                </div>
+                <div class="slide" style="background-image: url('ss5.jpg');">
+                    <div class="slide-text">Creative Animations</div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Main Content Layout - Full Bleed Edge-To-Edge Container Block -->
+    <!-- Main Layout Content -->
     <main>
-        <!-- LEFT SIDE SLIDESHOWS -->
-        <!-- Left Outer Column Showcase (ss1 - ss4) -->
-        <aside class="side-slideshow hide-mid">
-            <div class="side-slides left-outer-anim">
-                <img src="ss1.jpg" alt="Left Side Outer Presentation 1">
-                <img src="ss2.jpg" alt="Left Side Outer Presentation 2">
-                <img src="ss3.jpg" alt="Left Side Outer Presentation 3">
-                <img src="ss4.jpg" alt="Left Side Outer Presentation 4">
-            </div>
-        </aside>
-
-        <!-- Left Inner Column Showcase (ss1 - ss4) -->
-        <aside class="side-slideshow">
-            <div class="side-slides left-inner-anim">
-                <img src="ss4.jpg" alt="Left Side Inner Presentation 1">
-                <img src="ss3.jpg" alt="Left Side Inner Presentation 2">
-                <img src="ss2.jpg" alt="Left Side Inner Presentation 3">
-                <img src="ss1.jpg" alt="Left Side Inner Presentation 4">
-            </div>
-        </aside>
-
-        <!-- CENTRAL MULTIMEDIA PORTFOLIO SEAMLESS HERO CONTAINER -->
-        <section class="profile-card">
-            <div class="profile-img-container">
-                <img src="ss1.jpg" alt="Featured Media Project" class="profile-img">
+        <div class="content-card">
+            <!-- Profile Image Left -->
+            <div class="profile-container">
+                <img src="me.jpg" alt="Profile Picture" class="profile-img">
             </div>
             
-            <div class="profile-info">
-                <h1>Multimedia Portfolio</h1>
-                
+            <!-- Biography Content Right -->
+            <div class="bio-container">
+                <h1>Welcome to My Portfolio</h1>
+                <p>Hello! Welcome to my high school multimedia portfolio site. This space serves as a comprehensive collection of the creative projects and technical skills I have developed over the course of the school year, using industry-standard production tools.</p>
+                <p>Explore the navigation options above to view my specialized project pages. Each section highlights unique milestones in my learning journey, featuring original digital image edits, custom vector illustrations, video productions, and dynamic frame animations.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Multimedia Portfolio. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
                 <!-- Paragraph 1 -->
                 <p>
