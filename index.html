@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multimedia Portfolio | Home</title>
+    <title>Declan Kieffer | Home</title>
     <style>
         /* Base Reset & Variables */
         * {
@@ -11,231 +11,224 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        :root {
+            --bg-color: #006699; /* Ocean blue background */
+            --card-bg: #4a154b; /* Purple content card */
+            --card-hover: #5d1b5e; /* Vibrant purple for hover states */
+            --text-light: #ffffff; /* Crisp white text */
+            --text-dark: #111111;
+            --accent-white: #ffffff;
+            --accent-black: #000000;
+            --nav-bg: #ffffff;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #006699; /* Ocean Blue Background */
-            color: #ffffff; /* Crisp White Text */
+            background-color: var(--bg-color);
+            color: var(--text-light);
             line-height: 1.6;
             padding-bottom: 40px;
         }
 
         /* Navigation Bar */
         nav {
-            background-color: #000000; /* Black Accent */
+            background-color: var(--nav-bg);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
         .nav-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
         }
+
         .nav-logo {
+            color: var(--accent-black);
             font-weight: bold;
-            font-size: 1.3rem;
-            color: #ffffff;
+            font-size: 1.2rem;
             text-decoration: none;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .nav-logo:hover {
-            transform: scale(1.05);
-            color: #006699;
-        }
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            padding: 5px 10px;
-            border-radius: 4px;
-            position: relative;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: #006699;
-            background-color: #ffffff; /* White Accent */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            transition: color 0.3s ease;
         }
 
-        /* Header Banner Slideshow */
-        header {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
+        .nav-logo:hover {
+            color: var(--bg-color);
         }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--accent-black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+        }
+
+        /* Header Banner / Slideshow CSS Animation */
         .banner-container {
+            max-width: 1100px;
+            margin: 20px auto;
+            height: 350px;
             position: relative;
-            width: 100%;
-            height: 400px;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            background-color: #000000;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 3px solid var(--accent-white);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        /* Zoom effect on banner container hover */
         .banner-container:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+            transform: scale(1.01);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.35);
         }
-        /* CSS Keyframe Animation to cycle through images */
+
         .slideshow {
             display: flex;
-            width: 500%;
+            width: 500%; /* 5 images = 500% width */
             height: 100%;
-            animation: slideAnimation 25s infinite;
+            animation: slide 20s infinite;
         }
-        .slide {
-            width: 20%;
+
+        .slideshow img {
+            width: 20%; /* Each image takes 1/5 of total width */
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+            object-fit: cover;
         }
-        .slide-text {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-        .banner-container:hover .slide-text {
-            background: rgba(75, 0, 130, 0.95); /* Changes to intense purple on hover */
-            transform: translateX(10px);
-        }
-        @keyframes slideAnimation {
-            0%, 16% { transform: translateX(0%); }
-            20%, 36% { transform: translateX(-20%); }
-            40%, 56% { transform: translateX(-40%); }
-            60%, 76% { transform: translateX(-60%); }
-            80%, 96% { transform: translateX(-80%); }
+
+        @keyframes slide {
+            0% { transform: translateX(0%); }
+            16% { transform: translateX(0%); }
+            20% { transform: translateX(-20%); }
+            36% { transform: translateX(-20%); }
+            40% { transform: translateX(-40%); }
+            56% { transform: translateX(-40%); }
+            60% { transform: translateX(-60%); }
+            76% { transform: translateX(-60%); }
+            80% { transform: translateX(-80%); }
+            96% { transform: translateX(-80%); }
             100% { transform: translateX(0%); }
         }
 
-        /* Main Layout Content Container */
+        /* Main Content Layout */
         main {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-        
-        /* Purple Content Card Area */
-        .content-card {
-            background-color: #4B0082; /* Purple Content Card */
+
+        .profile-card {
+            background-color: var(--card-bg);
             border-radius: 12px;
             padding: 40px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             gap: 40px;
             align-items: center;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .content-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
-            background-color: #5a059b; /* Subtle purple glow shift */
+
+        /* Hover effect shifts card upward, lightens the background, and deepens shadow */
+        .profile-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--card-hover);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
-        
-        /* Profile Image Panel */
-        .profile-container {
-            flex: 0 0 250px;
+
+        .profile-image-wrapper {
+            flex-shrink: 0;
         }
-        .profile-img {
-            width: 250px;
-            height: 250px;
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
             object-fit: cover;
             border-radius: 50%;
-            border: 5px solid #ffffff; /* White Accent border */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+            border: 5px solid var(--accent-white);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease, border-color 0.4s ease;
         }
-        .content-card:hover .profile-img {
-            transform: scale(1.08) rotate(5deg);
-            border-color: #ffffff; 
-            box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+
+        /* Hovering over the card rotates and scales the profile image slightly */
+        .profile-card:hover .profile-image {
+            transform: scale(1.05) rotate(3deg);
+            border-color: rgba(255, 255, 255, 0.9);
         }
-        
-        /* Biography Panel */
-        .bio-container {
-            flex: 1;
+
+        .profile-text {
+            flex-grow: 1;
         }
-        .bio-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #ffffff;
-            padding-bottom: 10px;
-            transition: border-color 0.3s ease, color 0.3s ease;
-        }
-        .content-card:hover .bio-container h1 {
-            border-color: #ffffff;
-            color: #ffffff;
-        }
-        .bio-container p {
-            font-size: 1.1rem;
+
+        .profile-text h1 {
+            font-size: 2.2rem;
             margin-bottom: 15px;
-            transition: transform 0.3s ease;
+            border-bottom: 2px solid var(--accent-white);
+            padding-bottom: 10px;
+            letter-spacing: 0.5px;
         }
-        .content-card:hover .bio-container p {
-            transform: translateX(5px);
+
+        .profile-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
         }
-        .bio-container p:last-child {
+
+        .profile-text p:last-child {
             margin-bottom: 0;
         }
 
-        /* Footer Element */
-        footer {
-            background-color: #000000;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-        }
-        footer:hover {
-            background-color: #111111;
-        }
-
-        /* Responsive Breakpoints */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
                 gap: 15px;
             }
+
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 10px;
             }
+
             .banner-container {
-                height: 250px;
+                height: 220px;
             }
-            .content-card {
+
+            .profile-card {
                 flex-direction: column;
                 text-align: center;
-                padding: 20px;
+                padding: 30px 20px;
+                gap: 20px;
             }
-            .profile-container {
-                flex: none;
+
+            .profile-image {
+                width: 180px;
+                height: 180px;
             }
-            .bio-container h1 {
-                font-size: 2rem;
-            }
-            .content-card:hover .bio-container p {
-                transform: none;
+            
+            .profile-card:hover .profile-image {
+                transform: scale(1.05); /* Remove rotation on small screens */
             }
         }
     </style>
@@ -245,7 +238,7 @@
     <!-- Navigation Bar -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">MY PORTFOLIO</a>
+            <a href="index.html" class="nav-logo">Multimedia Portfolio</a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="photoshop.html">Photoshop</a></li>
@@ -258,37 +251,29 @@
     </nav>
 
     <!-- Header Banner Slideshow -->
-    <header>
-        <div class="banner-container">
-            <div class="slideshow">
-                <div class="slide" style="background-image: url('ss1.jpg');">
-                    <div class="slide-text">Featured Work Showcase</div>
-                </div>
-                <div class="slide" style="background-image: url('ss2.jpg');">
-                    <div class="slide-text">Digital Art Assets</div>
-                </div>
-                <div class="slide" style="background-image: url('ss3.jpg');">
-                    <div class="slide-text">Graphic Design Layouts</div>
-                </div>
-                <div class="slide" style="background-image: url('ss4.jpg');">
-                    <div class="slide-text">Video Production Highlights</div>
-                </div>
-                <div class="slide" style="background-image: url('ss5.jpg');">
-                    <div class="slide-text">Creative Animations</div>
-                </div>
-            </div>
+    <div class="banner-container">
+        <div class="slideshow">
+            <img src="ss1.jpg" alt="Portfolio Showcase 1">
+            <img src="ss2.jpg" alt="Portfolio Showcase 2">
+            <img src="ss3.jpg" alt="Portfolio Showcase 3">
+            <img src="ss4.jpg" alt="Portfolio Showcase 4">
+            <img src="ss5.jpg" alt="Portfolio Showcase 5">
         </div>
-    </header>
+    </div>
 
-    <!-- Main Layout Content -->
+    <!-- Page Layout Main Content -->
     <main>
-        <div class="content-card">
-            <!-- Profile Image (Left Side) -->
-            <div class="profile-container">
-                <img src="me.jpg" alt="Profile Picture" class="profile-img">
+        <section class="profile-card">
+            <div class="profile-image-wrapper">
+                <img src="me.jpg" alt="Profile Image" class="profile-image">
             </div>
-            
-            <!-- Biography Content (Right Side) -->
-            <div class="bio-container">
-                <h1>Welcome to My Portfolio</h1>
-                <p>Hello! Welcome to my high school multimedia portfolio site.
+            <div class="profile-text">
+                <h1>Welcome to My Multimedia Portfolio</h1>
+                <p>Hello! Welcome to my digital showcase featuring creative projects from my high school Multimedia design course. Throughout this school year, I have explored a wide range of digital mediums, mastering foundational software tools and design principles to bring my unique visual concepts to life.</p>
+                <p>Explore this site using the navigation links above to view my dedicated galleries. From custom graphic configurations in Photoshop and sleek vector designs in Illustrator, to cinematic edits in Premiere Pro and imaginative motion sequences in my animation suite, you will find a full timeline of my development as a digital artist.</p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
