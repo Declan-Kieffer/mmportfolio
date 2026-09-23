@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Declan Kieffer | Home</title>
+    <title>Multimedia Portfolio | Photoshop Gallery</title>
     <style>
         /* Base Reset & Variables */
         * {
@@ -14,13 +14,14 @@
 
         :root {
             --bg-color: #006699; /* Ocean blue background */
-            --card-bg: #4a154b; /* Purple content card */
-            --card-hover: #5d1b5e; /* Vibrant purple for hover states */
+            --card-bg: #000000; /* Black content card */
             --text-light: #ffffff; /* Crisp white text */
             --text-dark: #111111;
             --accent-white: #ffffff;
             --accent-black: #000000;
             --nav-bg: #ffffff;
+            --slider-btn-bg: rgba(74, 21, 75, 0.9);
+            --slider-btn-hover: rgba(93, 27, 94, 1);
         }
 
         body {
@@ -28,20 +29,22 @@
             background-color: var(--bg-color);
             color: var(--text-light);
             line-height: 1.6;
-            padding-bottom: 40px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevents default global window scrolling */
         }
 
         /* Navigation Bar */
         nav {
             background-color: var(--nav-bg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            flex-shrink: 0;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
 
         .nav-container {
-            max-width: 1100px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -56,11 +59,6 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-logo:hover {
-            color: var(--bg-color);
         }
 
         .nav-links {
@@ -84,151 +82,193 @@
             color: var(--text-light);
         }
 
-        /* Header Banner / Slideshow CSS Animation */
-        .banner-container {
-            max-width: 1100px;
-            margin: 20px auto;
-            height: 350px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border: 3px solid var(--accent-white);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Zoom effect on banner container hover */
-        .banner-container:hover {
-            transform: scale(1.01);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.35);
-        }
-
-        .slideshow {
-            display: flex;
-            width: 500%; /* 5 images = 500% width */
-            height: 100%;
-            animation: slide 20s infinite;
-        }
-
-        .slideshow img {
-            width: 20%; /* Each image takes 1/5 of total width */
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(0%); }
-            16% { transform: translateX(0%); }
-            20% { transform: translateX(-20%); }
-            36% { transform: translateX(-20%); }
-            40% { transform: translateX(-40%); }
-            56% { transform: translateX(-40%); }
-            60% { transform: translateX(-60%); }
-            76% { transform: translateX(-60%); }
-            80% { transform: translateX(-80%); }
-            96% { transform: translateX(-80%); }
-            100% { transform: translateX(0%); }
-        }
-
-        /* Main Content Layout */
+        /* Main Showcase Layout */
         main {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .profile-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Hover effect shifts card upward, lightens the background, and deepens shadow */
-        .profile-card:hover {
-            transform: translateY(-5px);
-            background-color: var(--card-hover);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-
-        .profile-image-wrapper {
-            flex-shrink: 0;
-        }
-
-        .profile-image {
-            width: 220px;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid var(--accent-white);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.4s ease, border-color 0.4s ease;
-        }
-
-        /* Hovering over the card rotates and scales the profile image slightly */
-        .profile-card:hover .profile-image {
-            transform: scale(1.05) rotate(3deg);
-            border-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .profile-text {
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .profile-text h1 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
+        /* Horizontal Carousel Frame */
+        .carousel-viewport {
+            width: 100%;
+            max-width: 1100px;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            /* Custom scrollbar configurations */
+            scrollbar-width: thin;
+            scrollbar-color: var(--card-bg) transparent;
+        }
+
+        .carousel-viewport::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-thumb {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* Sideways Landscape Portfolio Slide */
+        .portfolio-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            background-color: var(--card-bg);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: row; /* Horizontal alignment inside the card */
+            align-items: stretch;
+            min-height: 480px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Left Side Image */
+        .slide-image-frame {
+            flex: 1 1 55%;
+            position: relative;
+            background-color: rgba(0,0,0,0.3);
+            border-right: 4px solid var(--accent-white);
+            overflow: hidden;
+        }
+
+        .slide-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Preserves photo aspect ratio beautifully */
+            display: block;
+            padding: 10px;
+        }
+
+        /* Right Side Metadata Details */
+        .slide-details {
+            flex: 1 1 45%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-details h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             border-bottom: 2px solid var(--accent-white);
             padding-bottom: 10px;
-            letter-spacing: 0.5px;
         }
 
-        .profile-text p {
-            margin-bottom: 15px;
+        .slide-details p {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
         }
 
-        .profile-text p:last-child {
-            margin-bottom: 0;
+        /* Manual Controller Buttons */
+        .manual-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--slider-btn-bg);
+            color: var(--text-light);
+            border: 2px solid var(--accent-white);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            user-select: none;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 15px;
+        .manual-control:hover {
+            background-color: var(--slider-btn-hover);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .btn-prev {
+            left: 40px;
+        }
+
+        .btn-next {
+            right: 40px;
+        }
+
+        /* Project Counter Indicator */
+        .slide-indicator {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: rgba(0,0,0,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive UI Adjustments */
+        @media (max-width: 900px) {
+            body {
+                overflow: auto;
+                height: auto;
             }
 
-            .nav-links {
-                flex-wrap: wrap;
+            main {
+                padding: 10px;
+            }
+
+            .portfolio-slide {
+                flex-direction: column; /* Stack vertically on smaller tablet viewports */
+                min-height: auto;
+            }
+
+            .slide-image-frame {
+                height: 320px;
+                border-right: none;
+                border-bottom: 4px solid var(--accent-white);
+            }
+
+            .slide-details {
+                padding: 25px;
+            }
+
+            .manual-control {
+                position: static;
+                transform: none;
+                margin: 15px 10px;
+            }
+
+            .manual-control:hover {
+                transform: scale(1.1);
+            }
+
+            .control-container {
+                display: flex;
                 justify-content: center;
-            }
-
-            .banner-container {
-                height: 220px;
-            }
-
-            .profile-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
                 gap: 20px;
-            }
-
-            .profile-image {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .profile-card:hover .profile-image {
-                transform: scale(1.05); /* Remove rotation on small screens */
+                width: 100%;
+                order: 3;
             }
         }
     </style>
@@ -240,8 +280,8 @@
         <div class="nav-container">
             <a href="index.html" class="nav-logo">Multimedia Portfolio</a>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="photoshop.html">Photoshop</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="photoshop.html" class="active">Photoshop</a></li>
                 <li><a href="illustrator.html">Illustrator</a></li>
                 <li><a href="premiere.html">Premiere Pro Videos</a></li>
                 <li><a href="animation.html">Animation</a></li>
@@ -250,30 +290,140 @@
         </div>
     </nav>
 
-    <!-- Header Banner Slideshow -->
-    <div class="banner-container">
-        <div class="slideshow">
-            <img src="ss1.jpg" alt="Portfolio Showcase 1">
-            <img src="ss2.jpg" alt="Portfolio Showcase 2">
-            <img src="ss3.jpg" alt="Portfolio Showcase 3">
-            <img src="ss4.jpg" alt="Portfolio Showcase 4">
-            <img src="ss5.jpg" alt="Portfolio Showcase 5">
-        </div>
-    </div>
-
-    <!-- Page Layout Main Content -->
+    <!-- Main Content Layout -->
     <main>
-        <section class="profile-card">
-            <div class="profile-image-wrapper">
-                <img src="me.jpg" alt="Profile Image" class="profile-image">
-            </div>
-            <div class="profile-text">
-                <h1>Welcome to My Multimedia Portfolio</h1>
-                <p>Hello! Welcome to my digital showcase featuring creative projects from my high school Multimedia design course. Throughout this school year, I have explored a wide range of digital mediums, mastering foundational software tools and design principles to bring my unique visual concepts to life.</p>
-                <p>Explore this site using the navigation links above to view my dedicated galleries. From custom graphic configurations in Photoshop and sleek vector designs in Illustrator, to cinematic edits in Premiere Pro and imaginative motion sequences in my animation suite, you will find a full timeline of my development as a digital artist.</p>
-            </div>
-        </section>
+        
+        <!-- Manual Navigation Controllers -->
+        <button class="manual-control btn-prev" id="prevBtn" aria-label="Previous Project">&#10094;</button>
+        <button class="manual-control btn-next" id="nextBtn" aria-label="Next Project">&#10095;</button>
+
+        <!-- Horizontal Scroll Canvas -->
+        <div class="carousel-viewport" id="carousel">
+            
+            <!-- Slide 1: Team Entrance -->
+            <section class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss5.jpg" alt="Action Sports Photography Edit">
+                </div>
+                <div class="slide-details">
+                    <h2>High-Contrast Sports Edit</h2>
+                    <p>An intensive lighting, cropping, and clarity tuning exercise focused on intensifying shadows, balancing crowd highlights, and standardizing uniform tones.</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: Multi-Exposure Tennis -->
+            <section class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss1.jpg" alt="Multi-Exposure Tennis Manipulation">
+                </div>
+                <div class="slide-details">
+                    <h2>Action Multi-Exposure</h2>
+                    <p>An advanced blending project using layer masks, opacity dynamics, and grid overlays to capture sequential movement and kinetic energy on the tennis court.</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Homecoming Flyer -->
+            <section class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss2.jpg" alt="Wanted Theme Homecoming Invitation">
+                </div>
+                <div class="slide-details">
+                    <h2>Theme Event Flyer</h2>
+                    <p>A Western "Wanted" style promotional poster utilizing texture overlays, vintage typography pairings, and vector alignments to design a Homecoming invitation layout.</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: Varsity Football Poster -->
+            <section class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss3.jpg" alt="Varsity Football Game Day Poster">
+                </div>
+                <div class="slide-details">
+                    <h2>Varsity Sports Graphic</h2>
+                    <p>A dynamic game day social media asset merging stadium background photography with sharp typography treatments and vibrant color grading accents.</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: Outlaw Blackout Schedule -->
+            <section class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss4.jpg" alt="Outlaw Blackout Schedule Design">
+                </div>
+                <div class="slide-details">
+                    <h2>"Outlaw Blackout" Poster</h2>
+                    <p>An information architecture project combining a complex schedule layout with thematic asset compositions, photo masking, and custom grunge styling.</p>
+                      </div>
+            </section>
+        </div>
+        <div class="slide-indicator" id="counter">Project 1 of 5</div>
     </main>
 
+    <script>
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+        
+        let currentIndex = 0;
+        const totalSlides = 5;
+
+        // Counter UI refresh handler
+        function updateCounter() {
+            counter.textContent = `Project ${currentIndex + 1} of ${totalSlides}`;
+        }
+
+        // Programmatic click positioning logic
+        function scrollToSlide(index) {
+            // Evaluates exact computed bounding width to support percentage responsive rendering
+            const slideWidth = carousel.getBoundingClientRect().width;
+            
+            carousel.scrollTo({
+                left: slideWidth * index,
+                behavior: 'smooth'
+            });
+            currentIndex = index;
+            updateCounter();
+        }
+
+        // Click actions with reliable loop rollbacks
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex < totalSlides - 1) {
+                scrollToSlide(currentIndex + 1);
+            } else {
+                scrollToSlide(0); 
+            }
+        });
+
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex > 0) {
+                scrollToSlide(currentIndex - 1);
+            } else {
+                scrollToSlide(totalSlides - 1); 
+            }
+        });
+
+        // Recalculates screen orientation/resize layout boundaries dynamically
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                scrollToSlide(currentIndex);
+            }, 150);
+        });
+
+        // Swiping/Manual mousewheel tracking synchronizer
+        carousel.addEventListener('scroll', () => {
+            const slideWidth = carousel.getBoundingClientRect().width;
+            if (slideWidth > 0) {
+                const calculatedIndex = Math.round(carousel.scrollLeft / slideWidth);
+                if (calculatedIndex !== currentIndex && calculatedIndex < totalSlides) {
+                    currentIndex = calculatedIndex;
+                    updateCounter();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
