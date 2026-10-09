@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimedia Portfolio | Illustrator Gallery</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #4a154b; /* Vibrant Illustrator violet/purple theme */
+            --card-bg: #111111; /* Dark sleek content card */
+            --text-light: #ffffff; /* Crisp white text */
+            --text-dark: #111111;
+            --accent-white: #ffffff;
+            --accent-black: #000000;
+            --nav-bg: #ffffff;
+            --slider-btn-bg: rgba(255, 131, 0, 0.9); /* Illustrator orange accent for buttons */
+            --slider-btn-hover: rgba(255, 150, 30, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevents default global window scrolling */
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--nav-bg);
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: var(--accent-black);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--accent-black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+        }
+
+        /* Main Showcase Layout */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Horizontal Carousel Frame */
+        .carousel-viewport {
+            width: 100%;
+            max-width: 1100px;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            /* Custom scrollbar configurations */
+            scrollbar-width: thin;
+            scrollbar-color: var(--card-bg) transparent;
+        }
+
+        .carousel-viewport::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-thumb {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* Sideways Landscape Portfolio Slide */
+        .portfolio-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            background-color: var(--card-bg);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: row; /* Horizontal alignment inside the card */
+            align-items: stretch;
+            min-height: 480px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Left Side Image */
+        .slide-image-frame {
+            flex: 1 1 55%;
+            position: relative;
+            background-color: rgba(0,0,0,0.3);
+            border-right: 4px solid var(--accent-white);
+            overflow: hidden;
+        }
+
+        .slide-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Preserves photo aspect ratio beautifully */
+            display: block;
+            padding: 10px;
+        }
+
+        /* Right Side Metadata Details */
+        .slide-details {
+            flex: 1 1 45%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-details h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--accent-white);
+            padding-bottom: 10px;
+        }
+
+        .slide-details p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Manual Controller Buttons */
+        .manual-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--slider-btn-bg);
+            color: var(--text-light);
+            border: 2px solid var(--accent-white);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .manual-control:hover {
+            background-color: var(--slider-btn-hover);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .btn-prev {
+            left: 40px;
+        }
+
+        .btn-next {
+            right: 40px;
+        }
+
+        /* Project Counter Indicator */
+        .slide-indicator {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: rgba(0,0,0,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive UI Adjustments */
+        @media (max-width: 900px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            main {
+                padding: 10px;
+            }
+
+            .portfolio-slide {
+                flex-direction: column; /* Stack vertically on smaller tablet viewports */
+                min-height: auto;
+            }
+
+            .slide-image-frame {
+                height: 320px;
+                border-right: none;
+                border-bottom: 4px solid var(--accent-white);
+            }
+
+            .slide-details {
+                padding: 25px;
+            }
+
+            .manual-control {
+                position: static;
+                transform: none;
+                margin: 15px 10px;
+            }
+
+            .manual-control:hover {
+                transform: scale(1.1);
+            }
+
+            .control-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                width: 100%;
+                order: 3;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Multimedia Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="photoshop.html">Photoshop</a></li>
+                <li><a href="illustrator.html" class="active">Illustrator</a></li>
+                <li><a href="premiere.html">Premiere Pro Videos</a></li>
+                <li><a href="animation.html">Animation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Showcase Layout -->
+    <main>
+        <!-- Manual Navigation Controls -->
+        <div class="control-container">
+            <button class="manual-control btn-prev" onclick="moveSlide(-1)">&lt;</button>
+            <button class="manual-control btn-next" onclick="moveSlide(1)">&gt;</button>
+        </div>
+
+        <!-- Carousel Viewport -->
+        <div class="carousel-viewport" id="carousel">
+            
+            <!-- Slide 1: Monkey Character -->
+             <section class="portfolio-slide">
+            <div class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss7.png" alt="Vector illustration of a brown monkey face sticking its tongue out">
+                </div>
+                <div class="slide-details">
+                    <h2>Monkey Character Design</h2>
+                    <p>This graphic displays a simplified vector drawing of a cartoon monkey face. It features large, dark oval eyes with simple white highlights, curved prominent ears with a pink inner filling, a small snout area containing dark nostril indicators, and an open smiling line with a small red tongue playfully sticking out of the mouth.</p>
+                </div>
+            </div>
+              </section>
+
+
+
+            <!-- Slide 2: Shield Emblem -->
+             <section class="portfolio-slide">
+            <div class="portfolio-slide">
+                <div class="slide-image-frame">
+                    <img src="ss8.jpg" alt="Stylized Superman crest over a red and blue gradient circle border">
+                </div>
+                <div class="slide-details">
+                    <h2>Superman Shield Crest</h2>
+                    <p>This image features the classic Superman symbol. The core emblem uses a black outline containing bright yellow geometric shapes over a blue gradient backdrop. This entire diamond-like structure sits inside a larger, perfectly circular frame that transitions smoothly from deep red on the left to sky blue on the right, accented by clean neon-green diagonal bordering tracks.
+            </section>
+
+        <!-- Slide 3: Pumpkin Feature -->
+         <section class="portfolio-slide">
+        <div class="project-card">
+            <div class="image-frame">
+                <img src="ss9.jpg" alt="Spooky white and green Jack-o'-lantern pumpkin graphic over a dark grey background">
+            </div>
+            <div class="text-details">
+                <h2>Jack-o'-lantern Art</h2>
+                <p>This vector illustration portrays a stylized Halloween Jack-o'-lantern centered on a plain, dark charcoal grey backdrop. The pumpkin body uses vertical white segments shaded with clean green gradients to establish a distinct dimensional curvature. Sharp, dark triangular carve-outs form the spooky eyes, while a jagged, multi-toothed mouth cutout completes the glowing face effect under a solid green stem cap.</p>
+            </div>
+        </div>
+            </section>
+
+
+        <!-- Slide 4: Gradiented Text Feature -->
+         <section class="portfolio-slide">
+        <div class="project-card">
+            <div class="image-frame">
+                <img src="ss10.jpg" alt="Stylized letter graphics spelling out CHI over a clean white canvas">
+            </div>
+            <div class="text-details">
+                <h2>Typography Layout (CHI)</h2>
+                <p>This typographic art showcases the word "CHI" typed out horizontally over an open white background. Each character features a unique, custom-warped font profile decorated with smooth color shifts. The letter "C" utilizes a warm orange-to-peach gradient, the letter "H" transitions gently from white into a muted lavender tone, and the final letter "I" stands out in a solid, deep royal blue gradient layer.</p>
+            </div>
+        </div>
+        </section>
+    </div>
+
+</body>
+</html>
