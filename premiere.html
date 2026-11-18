@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimedia Portfolio | Premiere Pro Gallery</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #006699; /* Ocean blue background */
+            --card-bg: #000000; /* Black content card */
+            --text-light: #ffffff; /* Crisp white text */
+            --accent-white: #ffffff;
+            --accent-black: #000000;
+            --nav-bg: #ffffff;
+            --slider-btn-bg: rgba(74, 21, 75, 0.9);
+            --slider-btn-hover: rgba(93, 27, 94, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--nav-bg);
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: var(--accent-black);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--accent-black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+        }
+
+        /* Main Showcase Layout */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 0;
+        }
+
+        /* Vertical Carousel Viewport */
+        .carousel-viewport {
+            width: 100%;
+            max-width: 1050px;
+            height: 520px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            scrollbar-width: thin;
+            scrollbar-color: var(--card-bg) transparent;
+        }
+
+        .carousel-viewport::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .carousel-viewport::-webkit-scrollbar-thumb {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* Vertical Snap Portfolio Slide */
+        .portfolio-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--card-bg);
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Left Side Video Frame */
+        .slide-video-frame {
+            flex: 1 1 55%;
+            position: relative;
+            background-color: #0d0d0d;
+            border-right: 4px solid var(--accent-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .slide-video-frame video {
+            height: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Right Side Metadata Details */
+        .slide-details {
+            flex: 1 1 45%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-details h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--accent-white);
+            padding-bottom: 10px;
+        }
+
+        .slide-details p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Vertical Up/Down Controller Buttons */
+        .control-container {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 10;
+        }
+
+        .manual-control {
+            background-color: var(--slider-btn-bg);
+            color: var(--text-light);
+            border: 2px solid var(--accent-white);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .manual-control:hover {
+            background-color: var(--slider-btn-hover);
+            transform: scale(1.1);
+        }
+
+        /* Project Counter Indicator */
+        .slide-indicator {
+            margin-top: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: rgba(0,0,0,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive UI Adjustments */
+        @media (max-width: 900px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            main {
+                padding: 15px 10px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .carousel-viewport {
+                height: 680px;
+            }
+
+            .portfolio-slide {
+                flex-direction: column;
+            }
+
+            .slide-video-frame {
+                flex: 0 0 60%;
+                border-right: none;
+                border-bottom: 4px solid var(--accent-white);
+            }
+
+            .slide-details {
+                flex: 1 1 40%;
+                padding: 20px;
+            }
+
+            .slide-details h2 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .slide-details p {
+                font-size: 1rem;
+            }
+
+            .control-container {
+                position: static;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Multimedia Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="photoshop.html">Photoshop</a></li>
+                <li><a href="illustrator.html">Illustrator</a></li>
+                <li><a href="premiere.html" class="active">Premiere Pro Videos</a></li>
+                <li><a href="animation.html">Animation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Showcase -->
+    <main>
+        <div class="carousel-viewport" id="carousel">
+            
+            <!-- Slide 1: Tardy to Class Skit -->
+            <section class="portfolio-slide">
+                <div class="slide-video-frame">
+                    <video controls playsinline>
+                        <source src="ss12.mp4.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="slide-details">
+               <h2>ZachKing Video/Magic</h2>
+                </div>
+            </section>
+
+            <!-- Slide 2: Stop-Motion Object Jump Cut -->
+            <section class="portfolio-slide">
+                <div class="slide-video-frame">
+                    <video controls playsinline>
+                        <source src="ss13.mp4.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="slide-details">
+                 <h2>How to Video Tutorial</h2>
+                   <div>
+            </section>
+           
+            <!-- Slide 3: Third Premiere Pro Project -->
+            <section class="portfolio-slide">
+                <div class="slide-video-frame">
+                    <video controls playsinline>
+                        <source src="ss14.mp4.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="slide-details">
+                    <h2>Football Movie Trailer</h2>
+                </div>
+            </section>
